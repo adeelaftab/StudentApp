@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontFamily, Generic } from '../styleSheets/styles';
 import translation from '../language/translations';
 import { gql, useMutation, makeVar } from '@apollo/client';
+import { accessToken } from '../cache';
 /*TO-DO:
     - Font issue of password field
     - Code cleaning and Commenting
@@ -26,7 +27,7 @@ interface stateAttr {
 };
 const language = translation.getLanguage();
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
     //
     const [state, setState] = useState<stateAttr>({
         icon: "eye-slash",
@@ -35,14 +36,16 @@ const LoginScreen = () => {
         universityID: "ut127",
         password: "12345678"
     })
-    const [loginMutation, { error, loading, data }] = useMutation(loginQuery);
+    const [loginMutation, { error, loading }] = useMutation(loginQuery);
 
     const _handleSignIn = ({ universityID, password }) => {
         loginMutation({ variables: { login: universityID, password: password } })
             .then((result) => {
                 AsyncStorage.setItem('token', result.data.signInStudent.token);
-                const accessToken = makeVar(result.data.signInStudent.token);
-                console.log(accessToken());
+                accessToken(result.data.signInStudent.token);
+                // const accessToken = makeVar(result.data.signInStudent.token);
+                // console.log(accessToken());
+                navigation.navigate('Home', { token: accessToken() });
             });
     }
 
@@ -68,6 +71,10 @@ const LoginScreen = () => {
             InputTypePassword: !state.InputTypePassword
         });
     }
+
+    const _forgetPassword = () => {
+        navigation.navigate('ForgetPassword');
+    }
     return (
         <View style={styles.container}>
             <Text style={[styles.heading, FontFamily.arabicMedium]}>
@@ -90,7 +97,7 @@ const LoginScreen = () => {
                         placeholder={translation.loginScreen.passwordInputPlaceholder} />
                 </View>
             </View>
-            <TouchableOpacity onPress={() => { console.log(AsyncStorage.getItem('token', data.signInStudent.token)) }}>
+            <TouchableOpacity onPress={() => { _forgetPassword() }}>
                 <Text style={[styles.forgot, FontFamily.arabicRegular]} >{translation.loginScreen.forgotLink}</Text>
             </TouchableOpacity>
             <View style={styles.loginButtonView}>

@@ -1,12 +1,35 @@
+import { gql, useQuery } from '@apollo/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { authService } from '../services/authService';
-
+import { TouchableOpacity } from 'react-native-gesture-handler';
+const QUERY = gql`
+  query accessToken {
+    accessToken @client
+  }
+`;
 const HomeScreen = ({ navigation }) => {
+    const { data: currentData } = useQuery(QUERY);
+    // console.log(currentData);
+    if (currentData.accessToken == "") {
+        //navigation.navigate('Login');
+    }
+    const _checkData = () => {
+        navigation.navigate('ForgetPassword');
+    }
+    const _clearAsyncStorage = async () => {
+        AsyncStorage.clear();
+        console.log('clear Done')
+    }
     return (
         <View style={styles.master}>
             <Text style={styles.header}>Tab1</Text>
             <Text style={{ fontSize: 28 }}>Welcome, 1</Text>
+            <View >
+                <TouchableOpacity onPress={() => _clearAsyncStorage()} style={{ fontSize: 28 }}>
+                    <Text>testing</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
