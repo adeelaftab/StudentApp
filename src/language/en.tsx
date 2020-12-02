@@ -6,5 +6,9 @@ export default {
         passwordInputPlaceholder: 'Password',
         forgotLink: 'Forgot your password?',
         loginButton: 'Sign In',
+        signInLoadingText: 'Signing in'
+    },
+    loadingScreen: {
+        loadingText: 'Loading....'
     }
 }

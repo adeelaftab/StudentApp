@@ -3,17 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-const QUERY = gql`
-  query accessToken {
-    accessToken @client
-  }
-`;
 const HomeScreen = ({ navigation }) => {
-    const { data: currentData } = useQuery(QUERY);
-    // console.log(currentData);
-    if (currentData.accessToken == "") {
-        //navigation.navigate('Login');
-    }
     const _checkData = () => {
         navigation.navigate('ForgetPassword');
     }

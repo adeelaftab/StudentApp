@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontFamily, Generic } from '../styleSheets/styles';
 import translation from '../language/translations';
-import { gql, useMutation, makeVar } from '@apollo/client';
-import { accessToken } from '../cache';
+import { gql, useMutation } from '@apollo/client';
+import PreLoader from '../PreLoader';
 /*TO-DO:
     - Font issue of password field
     - Code cleaning and Commenting
@@ -28,7 +28,6 @@ interface stateAttr {
 const language = translation.getLanguage();
 
 const LoginScreen = ({ navigation }) => {
-    //
     const [state, setState] = useState<stateAttr>({
         icon: "eye-slash",
         InputTypePassword: true,
@@ -37,15 +36,11 @@ const LoginScreen = ({ navigation }) => {
         password: "12345678"
     })
     const [loginMutation, { error, loading }] = useMutation(loginQuery);
-
     const _handleSignIn = ({ universityID, password }) => {
         loginMutation({ variables: { login: universityID, password: password } })
             .then((result) => {
                 AsyncStorage.setItem('token', result.data.signInStudent.token);
-                accessToken(result.data.signInStudent.token);
-                // const accessToken = makeVar(result.data.signInStudent.token);
-                // console.log(accessToken());
-                navigation.navigate('Home', { token: accessToken() });
+                navigation.navigate('Home');
             });
     }
 
@@ -106,18 +101,18 @@ const LoginScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             {error ? <Text style={[Generic.errorMessage, FontFamily.arabicRegular]}>{state.errorMessage}</Text> : null}
-            {loading ? <Text style={[Generic.errorMessage, FontFamily.arabicRegular]}>loading....</Text> : null}
+            {loading ? <PreLoader preLoaderVisible={true} preLoadingText={translation.loginScreen.signInLoadingText} /> : null}
         </View>
     );
 }
 const styles = StyleSheet.create({
     container: {
         //width: 360,
-        width: "100%",
-        height: 741,
+        flex: 1,
+        // height: '800',
         backgroundColor: "#edf0f4",
         alignItems: "center",
-        top: 114
+        paddingTop: 114
     },
     heading: {
         //width: 127,

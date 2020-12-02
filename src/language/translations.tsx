@@ -7,7 +7,7 @@ const translation = new LocalizedStrings({
     en: english
 });
 
-translation.setLanguage('en');
+translation.setLanguage('ar');
 export const changeLanguage = (languageKey) => {
     translation.setLanguage(languageKey)
 }

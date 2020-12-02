@@ -6,5 +6,9 @@ export default {
         passwordInputPlaceholder: 'كلمةالمرور',
         forgotLink: 'نسيت كلمة المرور ؟',
         loginButton: 'تسجيل الدخول',
+        signInLoadingText: 'جاري تسجيل الدخول'
+    },
+    loadingScreen: {
+        loadingText: 'جار التحميل....'
     }
 }
