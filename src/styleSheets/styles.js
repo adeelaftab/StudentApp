@@ -9,6 +9,7 @@ export const FontFamily = StyleSheet.create({
         fontFamily: "Neo Sans Arabic Regular",
     },
 });
+
 export const Generic = StyleSheet.create({
     errorMessage: {
         color: "red",
