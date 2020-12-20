@@ -10,5 +10,8 @@ export default {
     },
     loadingScreen: {
         loadingText: 'Loading....'
+    },
+    errorMessage: {
+        offline: 'You are currently offline.'
     }
 }

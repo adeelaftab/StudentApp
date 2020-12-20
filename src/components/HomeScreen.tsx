@@ -9,7 +9,7 @@ const HomeScreen = ({ navigation }) => {
     }
     const _clearAsyncStorage = async () => {
         AsyncStorage.clear();
-        console.log('clear Done')
+        //console.log('clear Done')
     }
     return (
         <View style={styles.master}>

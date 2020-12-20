@@ -4,7 +4,6 @@ import translation from './language/translations';
 import { FontFamily } from './styleSheets/styles';
 
 const PreLoader = (props) => {
-    console.log(props)
     const _renderLoader = () => {
         if (props.preLoaderVisible)
             return (

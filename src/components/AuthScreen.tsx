@@ -15,11 +15,11 @@ const AuthScreen = ({ navigation }) => {
   useEffect(() => {
     if (!loading) {
       if (error) {
-        console.log("fError:", error.message)
+        //console.log("fError:", error.message)
         navigation.navigate("Login");
       }
       else {
-        console.log("fDATA:", data)
+        //console.log("fDATA:", data)
         navigation.navigate("Home");
       }
     }

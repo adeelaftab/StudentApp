@@ -10,5 +10,8 @@ export default {
     },
     loadingScreen: {
         loadingText: 'جار التحميل....'
+    },
+    errorMessage: {
+        offline: 'أنت حاليا غير متصل'
     }
 }

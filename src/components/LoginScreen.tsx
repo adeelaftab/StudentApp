@@ -6,6 +6,7 @@ import { FontFamily, Generic } from '../styleSheets/styles';
 import translation from '../language/translations';
 import { gql, useMutation } from '@apollo/client';
 import PreLoader from '../PreLoader';
+import { useOfflineMutation } from 'react-offix-hooks';
 /*TO-DO:
     - Font issue of password field
     - Code cleaning and Commenting
@@ -35,12 +36,22 @@ const LoginScreen = ({ navigation }) => {
         universityID: "ut127",
         password: "12345678"
     })
-    const [loginMutation, { error, loading }] = useMutation(loginQuery);
+    const [loginMutation, { error, loading }] = useOfflineMutation(loginQuery);
     const _handleSignIn = ({ universityID, password }) => {
         loginMutation({ variables: { login: universityID, password: password } })
             .then((result) => {
                 AsyncStorage.setItem('token', result.data.signInStudent.token);
                 navigation.navigate('Home');
+            })
+            .catch(e => {
+                if(e.offline==true){ 
+                    setState({
+                        ...state,
+                        errorMessage : translation.errorMessage.offline
+                    })
+                    console.log(translation.errorMessage.offline);
+                }
+                console.log(e);
             });
     }
 
