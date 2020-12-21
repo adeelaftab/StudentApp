@@ -52,8 +52,8 @@ const App = () => {
             <Stack.Navigator initialRouteName="AuthScreen">
               <Stack.Screen name="AuthScreen" component={AuthScreen} options={{ headerShown: false }} />
               <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-              <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
-              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} options={{ headerShown: false }} />
+              <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
           </NavigationContainer>
         </ApolloProvider >

@@ -1,8 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import AnnouncementScreen from '../components/AnnouncementScreen';
 const HomeScreen = ({ navigation }) => {
     const _checkData = () => {
         navigation.navigate('ForgetPassword');
@@ -13,6 +12,7 @@ const HomeScreen = ({ navigation }) => {
     }
     return (
         <View style={styles.master}>
+            <AnnouncementScreen MakeVisible={false} />
             <Text style={styles.header}>Tab1</Text>
             <Text style={{ fontSize: 28 }}>Welcome, 1</Text>
             <View >
