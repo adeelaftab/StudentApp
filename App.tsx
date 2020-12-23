@@ -1,67 +1,131 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { ApolloProvider } from '@apollo/client';
-import { ApolloOfflineProvider } from 'react-offix-hooks';
-import { offlineClient } from './src/offix';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {ApolloProvider} from '@apollo/client';
+import {ApolloOfflineProvider} from 'react-offix-hooks';
+import {offlineClient} from './src/config/offix';
 // Components
-import LoginScreen from './src/components/LoginScreen';
-import HomeScreen from './src/components/HomeScreen';
-import AuthScreen from './src/components/AuthScreen';
-import ForgetPasswordScreen from './src/components/ForgetPasswordScreen';
-import { useEffect, useState } from 'react';
-import PreLoader from './src/PreLoader';
+import LoginScreen from './src/views/LoginScreen';
+import HomeScreen from './src/views/HomeScreen';
+import AuthScreen from './src/views/AuthScreen';
+import ForgetPasswordScreen from './src/views/ForgetPasswordScreen';
+import {useEffect, useState} from 'react';
+import PreLoader from './src/components/PreLoader';
+import CustomDesign from './src/components/TabDesign';
+import AnnouncementScreen from './src/views/AnnouncementScreen';
+import translation from './src/language/translations';
 
 const Stack = createStackNavigator();
+const BottomTabs = createBottomTabNavigator();
+function ProfileScreen() {
+  return (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>ProfileScreen!</Text>
+    </View>
+  );
+}
 
-// const httpLink = createHttpLink({
-//   uri: 'https://gql.el-css.edu.om/',
-// });
+function ExamScreen() {
+  return (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>ExamScreen!</Text>
+    </View>
+  );
+}
+function DiscussionScreen() {
+  return (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>DiscussionScreen!</Text>
+    </View>
+  );
+}
 
-// const client = new ApolloClient({
-//   uri: 'https://gql.el-css.edu.om/',
-//   cache: clientCache,
-// });
-// const authLink = setContext(async (_, { headers }) => {
-//   const token = await AsyncStorage.getItem('token')
-//   // return the headers to the context so httpLink can read them
-//   return {
-//     headers: {
-//       ...headers,
-//       "x-access-token": token ? `${token}` : "",
-//     }
-//   }
-// });
-
-// const client = new ApolloClient({
-//   link: authLink.concat(httpLink),
-//   cache: new InMemoryCache()
-// });
+function HomeTabsNavigator() {
+  return (
+    <BottomTabs.Navigator
+      tabBar={(props) => <CustomDesign {...props} />}
+      initialRouteName="Home">
+      <BottomTabs.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarBadge: 'bars',
+          tabBarLabel: translation.navigationTabs.moreScreen,
+        }}
+      />
+      <BottomTabs.Screen
+        name="Exams"
+        component={ExamScreen}
+        options={{
+          tabBarLabel: translation.navigationTabs.examScreen,
+          tabBarBadge: 'check-circle',
+        }}
+      />
+      <BottomTabs.Screen
+        name="Discussion"
+        component={DiscussionScreen}
+        options={{
+          tabBarLabel: translation.navigationTabs.discussionScreen,
+          tabBarBadge: 'comments',
+        }}
+      />
+      <BottomTabs.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: translation.navigationTabs.homeScreen,
+          tabBarBadge: 'home',
+        }}
+      />
+    </BottomTabs.Navigator>
+  );
+}
 
 const App = () => {
   const [initialized, setInitialized] = useState(false);
   useEffect(() => {
-    offlineClient.init().then(() => setInitialized(true))
+    offlineClient.init().then(() => setInitialized(true));
   }, []);
-   // load the app if the apolloClient is there, otherwise load a loading screen
-   if (initialized) {
+  if (initialized) {
     return (
       <ApolloOfflineProvider client={offlineClient}>
         <ApolloProvider client={offlineClient}>
           <NavigationContainer>
             <Stack.Navigator initialRouteName="AuthScreen">
-              <Stack.Screen name="AuthScreen" component={AuthScreen} options={{ headerShown: false }} />
-              <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-              <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} options={{ headerShown: false }} />
-              <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+              <Stack.Screen
+                name="AuthScreen"
+                component={AuthScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="ForgetPassword"
+                component={ForgetPasswordScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="HomeTabs"
+                component={HomeTabsNavigator}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="AnnouncementScreen"
+                component={AnnouncementScreen}
+                options={{headerShown: false}}
+              />
             </Stack.Navigator>
           </NavigationContainer>
-        </ApolloProvider >
+        </ApolloProvider>
       </ApolloOfflineProvider>
-    )
+    );
   }
-  return <PreLoader preLoaderVisible={true} />
-  
+  return <PreLoader preLoaderVisible={true} />;
 };
 
-export default App; 
+export default App;

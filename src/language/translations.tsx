@@ -3,12 +3,12 @@ import arabic from './ar';
 import english from './en';
 
 const translation = new LocalizedStrings({
-    ar: arabic,
-    en: english
+  ar: arabic,
+  en: english,
 });
 
 translation.setLanguage('ar');
 export const changeLanguage = (languageKey) => {
-    translation.setLanguage(languageKey)
-}
+  translation.setLanguage(languageKey);
+};
 export default translation;
