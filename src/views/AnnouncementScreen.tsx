@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import translation from './../language/translations';
 import {FontFamily} from './../styleSheets/styles';
 const language = translation.getLanguage();
@@ -16,12 +22,12 @@ const AnnouncementScreen = ({navigation}) => {
             {translation.AnnouncementScreen.pageTitle}
           </Text>
         </View>
-        <View style={AnnouncementStyles.MessageTextView}>
+        <ScrollView style={AnnouncementStyles.MessageTextView}>
           <Text
             style={[AnnouncementStyles.MessageText, FontFamily.arabicRegular]}>
             {translation.AnnouncementScreen.MessageText}
           </Text>
-        </View>
+        </ScrollView>
         <TouchableOpacity
           onPress={_handleAnnouncement}
           style={AnnouncementStyles.ConfirmButton}>

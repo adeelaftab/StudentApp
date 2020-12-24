@@ -1,7 +1,17 @@
 import * as React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {FontFamily, Generic} from '../styleSheets/styles';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {IconName} from '@fortawesome/fontawesome-svg-core';
+import {
+  faCalendarAlt,
+  faCommentAlt,
+  faBell,
+} from '@fortawesome/free-solid-svg-icons';
+const val = {
+  faBell: faBell,
+  faCommentAlt: faCommentAlt,
+  faCalendarAlt: faCalendarAlt,
+};
 
 const RoundIconButton = (props) => {
   return (
@@ -9,11 +19,11 @@ const RoundIconButton = (props) => {
       <TouchableOpacity
         style={[styles.RoundButton, props.style]}
         accessibilityRole="button">
-        <Icon
+        <FontAwesomeIcon
           style={styles.ButtonIcon}
-          name={props.name}
+          icon={val[props.name] as IconName}
           size={22}
-          color="#50555a"
+          color={'#50555a'}
         />
       </TouchableOpacity>
     </View>

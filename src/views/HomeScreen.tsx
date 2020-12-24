@@ -1,7 +1,13 @@
 import React, {useEffect} from 'react';
-import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {FontFamily, Generic} from '../styleSheets/styles';
 import translation from '../language/translations';
 import {gql, useMutation} from '@apollo/client';
@@ -9,6 +15,7 @@ import PreLoader from './../components/PreLoader';
 import {useOfflineMutation} from 'react-offix-hooks';
 import RoundIconButton from '../components/RoundIconButton';
 import ClassMeetings from '../components/ClassMeetings';
+import Course from '../components/Course';
 
 const Announcement = false;
 const HomeScreen = ({navigation}) => {
@@ -22,17 +29,17 @@ const HomeScreen = ({navigation}) => {
   }, [Announcement]);
 
   return (
-    <View style={styles.Container}>
+    <ScrollView style={styles.Container}>
       <View style={styles.TopHeader}>
         <View style={styles.IconHeader}>
-          <RoundIconButton style={styles.RoundIconButton} name={'bell'} />
+          <RoundIconButton style={styles.RoundIconButton} name={'faBell'} />
           <RoundIconButton
             style={styles.RoundIconButton}
-            name={'comment-alt-lines'}
+            name={'faCommentAlt'}
           />
           <RoundIconButton
             style={styles.RoundIconButton}
-            name={'calendar-alt'}
+            name={'faCalendarAlt'}
           />
         </View>
         <View style={styles.LogoHeader}>
@@ -45,15 +52,26 @@ const HomeScreen = ({navigation}) => {
       <Text style={[styles.TitleHeader, FontFamily.arabicRegular]}>
         {translation.HomeScreen.TitleHeader}
       </Text>
-      <ClassMeetings type={`new`} />
-      <View>
+      <ClassMeetings />
+      <View style={styles.ViewAllView}>
         <TouchableOpacity
-          onPress={() => _clearAsyncStorage()}
-          style={{fontSize: 28}}>
-          <Text>testing</Text>
+          style={[styles.ViewAllButton, FontFamily.arabicRegular]}
+          onPress={() => _clearAsyncStorage()}>
+          <Text style={[styles.ViewAllButtonText, FontFamily.arabicRegular]}>
+            {translation.HomeScreen.ViewAllButtonText}
+          </Text>
         </TouchableOpacity>
       </View>
-    </View>
+      <Text style={[styles.Title2ndHeader, FontFamily.arabicRegular]}>
+        {translation.HomeScreen.TitleHeader}
+      </Text>
+      <View>
+        <Course customStyle={{marginBottom: 10}} status={`active`} />
+        <Course customStyle={{marginBottom: 10}} />
+        <Course customStyle={{marginBottom: 10}} />
+        <Course customStyle={{marginBottom: 20}} />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -73,13 +91,47 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
   LogoImage: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     flexDirection: 'row',
   },
   TitleHeader: {
+    width: `100%`,
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 5,
+    fontSize: 13,
+    color: `#777d84`,
+    textDecorationLine: 'none',
+    textDecorationStyle: 'solid',
+    textDecorationColor: 'rgb(119, 125, 132)',
+    textAlign: `right`,
+  },
+  ViewAllView: {
+    marginTop: 10,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  ViewAllButton: {
+    width: 141,
+    height: 27,
+    borderWidth: 1,
+    borderStyle: `solid`,
+    borderColor: `#b9c2cb`,
+    borderRadius: 40,
+    backgroundColor: `#ffffff`,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  ViewAllButtonText: {
+    fontSize: 14,
+    color: `#50555a`,
+    textDecorationLine: 'none',
+    textDecorationStyle: 'solid',
+    textDecorationColor: 'rgb(80, 85, 90)',
+  },
+  Title2ndHeader: {
+    width: `100%`,
+    marginBottom: 5,
     fontSize: 13,
     color: `#777d84`,
     textDecorationLine: 'none',

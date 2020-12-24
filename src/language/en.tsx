@@ -29,6 +29,7 @@ export default {
   },
   HomeScreen: {
     TitleHeader: `Next meeting`,
+    ViewAllButtonText: `View all Meetings`,
   },
   loadingScreen: {
     loadingText: 'Loading....',

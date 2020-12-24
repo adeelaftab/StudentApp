@@ -29,6 +29,7 @@ export default {
   },
   HomeScreen: {
     TitleHeader: `اللقاء القادم`,
+    ViewAllButtonText: `عرض كل اللقاءات`,
   },
   loadingScreen: {
     loadingText: 'جار التحميل....',

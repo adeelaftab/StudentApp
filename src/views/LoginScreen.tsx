@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {
   Text,
   View,
+  ScrollView,
   StyleSheet,
   TextInput,
   TouchableOpacity,
@@ -92,71 +93,71 @@ const LoginScreen = ({navigation}) => {
     navigation.navigate('ForgetPassword');
   };
   return (
-    <View style={styles.container}>
-      <Text style={[styles.heading, FontFamily.arabicMedium]}>
-        {translation.loginScreen.pageTitle}
-      </Text>
-      <View style={styles.universityIDInputBox}>
-        <TextInput
-          keyboardType="numeric"
-          onChangeText={_changeUniversityID}
-          style={[styles.universityIDInputField, FontFamily.arabicRegular]}
-          placeholder={translation.loginScreen.universityIDInputPlaceholder}
-        />
-      </View>
-      <View style={styles.passwordInputBox}>
-        <View style={styles.passwordInputView}>
-          <Icon
-            style={styles.passwordIconInput}
-            onPress={_changeIcon}
-            name={state.icon}
-            size={22}
-            color="#777d84"
-          />
+    <ScrollView contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}>
+      <View style={styles.container}>
+        <Text style={[styles.heading, FontFamily.arabicMedium]}>
+          {translation.loginScreen.pageTitle}
+        </Text>
+        <View style={styles.universityIDInputBox}>
           <TextInput
-            style={[styles.passwordInputField, FontFamily.arabicRegular]}
-            secureTextEntry={state.InputTypePassword}
-            onChangeText={_changePassword}
-            placeholder={translation.loginScreen.passwordInputPlaceholder}
+            keyboardType="numeric"
+            onChangeText={_changeUniversityID}
+            style={[styles.universityIDInputField, FontFamily.arabicRegular]}
+            placeholder={translation.loginScreen.universityIDInputPlaceholder}
           />
         </View>
-      </View>
-      <TouchableOpacity
-        onPress={() => {
-          _forgetPassword();
-        }}>
-        <Text style={[styles.forgot, FontFamily.arabicRegular]}>
-          {translation.loginScreen.forgotLink}
-        </Text>
-      </TouchableOpacity>
-      <View style={styles.loginButtonView}>
+        <View style={styles.passwordInputBox}>
+          <View style={styles.passwordInputView}>
+            <Icon
+              style={styles.passwordIconInput}
+              onPress={_changeIcon}
+              name={state.icon}
+              size={22}
+              color="#777d84"
+            />
+            <TextInput
+              style={[styles.passwordInputField, FontFamily.arabicRegular]}
+              secureTextEntry={state.InputTypePassword}
+              onChangeText={_changePassword}
+              placeholder={translation.loginScreen.passwordInputPlaceholder}
+            />
+          </View>
+        </View>
         <TouchableOpacity
-          onPress={() => _handleSignIn(state)}
-          style={styles.loginButton}>
-          <Text style={[styles.loginButtonText, FontFamily.arabicMedium]}>
-            {translation.loginScreen.loginButton}
+          onPress={() => {
+            _forgetPassword();
+          }}>
+          <Text style={[styles.forgot, FontFamily.arabicRegular]}>
+            {translation.loginScreen.forgotLink}
           </Text>
         </TouchableOpacity>
+        <View style={styles.loginButtonView}>
+          <TouchableOpacity
+            onPress={() => _handleSignIn(state)}
+            style={styles.loginButton}>
+            <Text style={[styles.loginButtonText, FontFamily.arabicMedium]}>
+              {translation.loginScreen.loginButton}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {error ? (
+          <Text style={[Generic.errorMessage, FontFamily.arabicRegular]}>
+            {state.errorMessage}
+          </Text>
+        ) : null}
       </View>
-      {error ? (
-        <Text style={[Generic.errorMessage, FontFamily.arabicRegular]}>
-          {state.errorMessage}
-        </Text>
-      ) : null}
       {loading || state.loading ? (
         <PreLoader
           preLoaderVisible={true}
           preLoadingText={translation.loginScreen.signInLoadingText}
         />
       ) : null}
-    </View>
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    //width: 360,
     flex: 1,
-    // height: '800',
     backgroundColor: '#edf0f4',
     alignItems: 'center',
     paddingTop: 114,

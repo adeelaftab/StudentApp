@@ -44,11 +44,11 @@ const ClassMeetings = (props) => {
           </View>
         </View>
       </View>
-      <TouchableOpacity style={styles.Button} accessibilityRole="button">
+      <View style={styles.Button}>
         <Text style={[styles.ButtonText, FontFamily.arabicRegular]}>
           باقي 5 ساعات | 10 صباحا
         </Text>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };
